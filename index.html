@@ -175,11 +175,13 @@
         }
 
         //error check function
-        function setErrorForSelector(errormsgs) {
+        function setErrorForSelector(input,errormsgs) {
+            input.classList="selected error"
             selectError.classList = "visible"
             selectError.innerText = errormsgs
         }
-        function setSuccessforSelector() {
+        function setSuccessforSelector(input) {
+            input.classList="selected"
             selectError.className = "selected"
 
         }
@@ -229,9 +231,9 @@
             }
             // Selector validate
             if (selected.textContent === "Select Options") {
-                setErrorForSelector('Please select a option ')
+                setErrorForSelector(selected,'Please select a option ')
             } else {
-                setSuccessforSelector()
+                setSuccessforSelector(selected)
             }
             successMsg()
 
