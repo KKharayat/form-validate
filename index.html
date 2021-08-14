@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <title>form</title>
+</head>
+
+<body>
+    <section class="free-signup-form">
+        <div class="container">
+            <div class="row">
+                <!-- left content side -->
+                <div class="col-md-6 col-sm-12 align-self-center">
+                    <div><span class="bold-text"> UPSC </span>
+                        <p style="display:inline-block; font-size: 1.3em;letter-spacing: 4px;">PATHSHALA </p>
+                        </PATHSHALA>
+                    </div>
+                    <p class="text">Best Online Coaching for UPSC Preparation</p>
+                    <div class="image-wrapper hide-on-mobile">
+                        <img src="images/brooke-cagle--uHVRvDr7pg-unsplash.jpg" alt="" class="image-people" />
+                        <div class="image--overlay">
+                            <p>
+                                Thousands of students from all over India trust UPSC PATHSHALA
+                                for IAS preparation. Now, it's your hance to clear UPSC!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- right side Form -->
+                <div class="col-md-6 col-sm-12">
+                    <section class="form-custom">
+                        <p>Book a Free Demo Class</p>
+                        <p>Limited Seats only!</p>
+                        <form id="form">
+                            <!-- input number-->
+                            <div class="form-wrapper "  style="margin-bottom: 0px">
+                                <label for="number" class="label-text">Mobile Number
+                                </label>
+                                <input type="number" class="form-control input-field" id="Mobnumber" name="phone"
+                                    placeholder="+91 - 99999999" />
+                                <small>error</small>
+                            </div>
+                            <!-- input name-->
+                            <div class="form-wrapper " style="margin-bottom: 0px">
+                                <label for="name" class="label-text">Full Name</label>
+                                <input type="text" class="form-control input-field" name="name" id="name"
+                                    placeholder="Full Name" />
+                                <small>error</small>
+                            </div>
+                            <!-- input email-->
+                            <div class="form-wrapper " style="margin-bottom: 0px">
+                                <label for="email" class="label-text">E-mail ID</label>
+                                <input type="text" class="form-control input-field" name="email" id="email"
+                                    placeholder="E-mail ID" />
+                                <small>error</small>
+                            </div>
+                            <div >
+                                <label class="label-text">What describe you best</label>
+                                <select class="form-control " id="">
+                                    <optgroup>
+                                        <option value="" selected disabled>Please select</option>
+                                        <option>College Student</option>
+                                        <option>Working Professional</option>
+                                        <option>Full time aspirant</option>
+                                        <option>Other</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div  style="margin-bottom: 0px">
+
+                                <button type="submit" class="
+                  btn custom-btn
+                ">
+                                    Submit
+                                </button>
+                            </div>
+
+                            <p class="confirmation">
+                                By clicking 'Submit' button, you explicitly solicit a call & email from uFaber
+                            </p>
+                        </form>
+                    </section>
+                    <div class="image-wrapper hide-on-desktop">
+                        <img src="images/brooke-cagle--uHVRvDr7pg-unsplash.jpg" alt="" class="image-people" />
+                        <div class="image--overlay">
+                            <p>
+                                Thousands of students from all over India trust UPSC PATHSHALA
+                                for IAS preparation. Now, it's your hance to clear UPSC!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        const form = document.getElementById('form')
+        const number = document.getElementById('Mobnumber')
+        const name = document.getElementById('name')
+        const email = document.getElementById('email')
+
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+            console.log("email", email.value)
+            console.log("email", number.value)
+            console.log("name", name.value)
+            console.log("form", form)
+            validate()
+        })
+
+        const sendData=(sRate,count)=>{
+            if(sRate==count){
+                location.href='secondPage.html'
+            }
+
+        }
+        const successMsg = () => {
+            let formCont = document.getElementsByClassName('form-wrapper')
+            console.log("FRom ka length", formCont)
+            var count = formCont.length - 1
+            for (let i = 0; i < formCont.length; i++) {
+                if (formCont[i].className ==='form-wrapper success') {
+                    var sRate = 0 + i
+                    console.log("count", count)
+                    console.log("sRate", sRate)
+                       
+                } 
+            }
+            sendData(sRate,count)
+        }
+
+        // email validate function
+        const isEmail = (emailVal) => {
+            let atSymbol = emailVal.indexOf("@")
+            if (atSymbol < 1) return false
+            let dot = emailVal.lastIndexOf('.')
+            if (dot <= atSymbol + 2) return false
+            if (dot === emailVal.length - 1) return false
+            return true
+        }
+
+        //error check function
+        function setErrorMsg(input, errormsgs) {
+            const formControl = input.parentElement;
+            const small = formControl.querySelector('small')
+            formControl.className = "form-wrapper error"
+            small.innerText = errormsgs
+        }
+
+        //success check function
+        function setSuccess(input, errormsgs) {
+            const formControl = input.parentElement;
+            formControl.className = "form-wrapper success"
+        }
+
+        // validate function
+        const validate = () => {
+            const numberVal = number.value.trim()
+            const nameVal = name.value.trim()
+            const emailVal = email.value.trim()
+            // Number Validate
+            if (numberVal === '') {
+                setErrorMsg(number, 'Please enter a valid Mobile number')
+            } else if (numberVal.length != 10) {
+                setErrorMsg(number, 'Please enter a valid Mobile number ')
+            } else {
+                setSuccess(number)
+            }
+            // Name validate
+            if (nameVal === '') {
+                setErrorMsg(name, 'Please enter a valid name')
+            } else if (nameVal.length <= 4) {
+                setErrorMsg(name, 'Please enter a valid name')
+            } else {
+                setSuccess(name)
+            }
+            // email validate
+            if (emailVal === '') {
+                console.log("emailVal", emailVal)
+                setErrorMsg(email, 'Please enter a valid email id ')
+            } else if (!isEmail(emailVal)) {
+                setErrorMsg(email, 'Please enter a valid email id')
+            } else {
+                setSuccess(email)
+            }
+           
+            successMsg()
+
+        }  // validate function end
+    </script>
+    <!-- Bootstrap Script -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
