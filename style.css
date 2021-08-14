@@ -127,17 +127,21 @@ body {
   outline: 0;
   border-color: rgb(140, 236, 236);
 }
-.form-wrapper.error input {
+.form-wrapper.error input,
+.selected.error {
   border-color: #e74c3c;
 }
-.form-wrapper.success input {
+.form-wrapper.success input,
+.select-box .success .option {
   border-color: rgb(140, 236, 236);
 }
-.form-wrapper small {
+.form-wrapper small,
+.select-box small {
   color: #e74c3c;
   visibility: hidden;
 }
-.form-wrapper.error small {
+.form-wrapper.error small,
+.select-box.error small {
   visibility: visible;
 }
 .custom-btn {
@@ -283,7 +287,6 @@ body {
 }
 .testimonial-profile {
   display: flex;
-  /* justify-content: space-between; */
 }
 .testimonial-profile .avatar {
   width: 66px;
@@ -413,4 +416,89 @@ body {
 }
 .fab {
   margin-right: 5px;
+}
+/* dropdown */
+.select-box {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.selector-label {
+  font-size: 14px;
+  text-align: left;
+  margin-top: 10px;
+}
+.select-box .options-container {
+  background: #fff;
+  color: black;
+  max-height: 0;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.4s;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ced4da;
+  order: 1;
+}
+
+.selected {
+  border: 1px solid #ced4da;
+  border-radius: 0.25em;
+  color: black;
+  position: relative;
+  font-size: 14px;
+  order: 0;
+}
+
+.selected::after {
+  content: "";
+  background: url("images/arrow-down.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: black;
+  position: absolute;
+  height: 100%;
+  width: 32px;
+  right: 10px;
+  top: 5px;
+
+  transition: all 0.4s;
+}
+.select-box .options-container.active {
+  max-height: 240px;
+  opacity: 1;
+}
+
+.select-box .options-container.active + .selected::after {
+  transform: rotateX(180deg);
+  top: -6px;
+}
+
+.select-box .options-container::-webkit-scrollbar {
+  width: 8px;
+  background: #0d141f;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .options-container::-webkit-scrollbar-thumb {
+  background: #525861;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .option,
+.selected {
+  padding: 12px 24px;
+  cursor: pointer;
+}
+
+.select-box .option:hover {
+  background-color: #f6e4d9;
+}
+
+.select-box label {
+  cursor: pointer;
+}
+
+.select-box .option .radio {
+  display: none;
 }

@@ -44,36 +44,51 @@
                                 <label for="number" class="label-text">Mobile Number
                                 </label>
                                 <input type="number" class="form-control input-field" id="Mobnumber" name="phone"
-                                    placeholder="+91 - 99999999" />
+                                    autocomplete="off" placeholder="+91 - 99999999" />
                                 <small>error</small>
                             </div>
                             <!-- input name-->
                             <div class="form-wrapper " style="margin-bottom: 0px">
                                 <label for="name" class="label-text">Full Name</label>
                                 <input type="text" class="form-control input-field" name="name" id="name"
-                                    placeholder="Full Name" />
+                                    autocomplete="off" placeholder="Full Name" />
                                 <small>error</small>
                             </div>
                             <!-- input email-->
                             <div class="form-wrapper " style="margin-bottom: 0px">
                                 <label for="email" class="label-text">E-mail ID</label>
                                 <input type="text" class="form-control input-field" name="email" id="email"
-                                    placeholder="E-mail ID" />
+                                    autocomplete="off" placeholder="E-mail ID" />
                                 <small>error</small>
                             </div>
-                            <div >
-                                <label class="label-text">What describe you best</label>
-                                <select class="form-control " id="">
-                                    <optgroup>
-                                        <option value="" selected disabled>Please select</option>
-                                        <option>College Student</option>
-                                        <option>Working Professional</option>
-                                        <option>Full time aspirant</option>
-                                        <option>Other</option>
-                                    </optgroup>
-                                </select>
+                            <div class="select-box">
+                                <label class="selector-label">What describe you best</label>
+                                <div class="options-container">
+                                    <div class="option">
+                                        <input type="radio" class="radio" id="College" name="category" />
+                                        <label for="College">College Student</label>
+                                    </div>
+
+                                    <div class="option">
+                                        <input type="radio" class="radio" id="Working" name="category" />
+                                        <label for="Working">Working Professional</label>
+                                    </div>
+
+                                    <div class="option">
+                                        <input type="radio" class="radio" id="aspirant" name="category" />
+                                        <label for="aspirant">Full time aspirant</label>
+                                    </div>
+
+                                    <div class="option">
+                                        <input type="radio" class="radio" id="Other" name="category" />
+                                        <label for="Other">Other</label>
+                                    </div>
+                                </div>
+
+                                <div class="selected">Select Options</div>
+                                <small class="selector-error">error</small>
                             </div>
-                            <div  style="margin-bottom: 0px">
+                            <div style="margin-bottom: 0px">
 
                                 <button type="submit" class="
                   btn custom-btn
@@ -102,40 +117,51 @@
     </section>
 
     <script type="text/javascript">
+        // dropDown js
+        const selected = document.querySelector(".selected");
+        const optionsContainer = document.querySelector(".options-container");
+
+        const optionsList = document.querySelectorAll(".option");
+
+        selected.addEventListener("click", () => {
+            optionsContainer.classList.toggle("active");
+        });
+
+        optionsList.forEach(o => {
+            o.addEventListener("click", () => {
+                selected.innerHTML = o.querySelector("label").innerHTML;
+                optionsContainer.classList.remove("active");
+            });
+        });// dropDown js end
+
         const form = document.getElementById('form')
         const number = document.getElementById('Mobnumber')
         const name = document.getElementById('name')
         const email = document.getElementById('email')
+        const selectError = document.querySelector(".selector-error");
 
 
         form.addEventListener('submit', (event) => {
             event.preventDefault()
-            console.log("email", email.value)
-            console.log("email", number.value)
-            console.log("name", name.value)
-            console.log("form", form)
             validate()
         })
 
-        const sendData=(sRate,count)=>{
-            if(sRate==count){
-                location.href='secondPage.html'
+        const sendData = (sRate, count) => {
+            if (sRate == count) {
+                location.href = 'secondPage.html'
             }
 
         }
         const successMsg = () => {
             let formCont = document.getElementsByClassName('form-wrapper')
-            console.log("FRom ka length", formCont)
             var count = formCont.length - 1
             for (let i = 0; i < formCont.length; i++) {
-                if (formCont[i].className ==='form-wrapper success') {
+                if (formCont[i].className === 'form-wrapper success') {
                     var sRate = 0 + i
-                    console.log("count", count)
-                    console.log("sRate", sRate)
-                       
-                } 
+                    sendData(sRate, count)
+                }
+
             }
-            sendData(sRate,count)
         }
 
         // email validate function
@@ -143,12 +169,21 @@
             let atSymbol = emailVal.indexOf("@")
             if (atSymbol < 1) return false
             let dot = emailVal.lastIndexOf('.')
-            if (dot <= atSymbol + 2) return false
+            if (dot <= atSymbol + 1) return false
             if (dot === emailVal.length - 1) return false
             return true
         }
 
         //error check function
+        function setErrorForSelector(errormsgs) {
+            selectError.classList = "visible"
+            selectError.innerText = errormsgs
+        }
+        function setSuccessforSelector() {
+            selectError.className = "selected"
+
+        }
+
         function setErrorMsg(input, errormsgs) {
             const formControl = input.parentElement;
             const small = formControl.querySelector('small')
@@ -183,16 +218,21 @@
             } else {
                 setSuccess(name)
             }
+
             // email validate
             if (emailVal === '') {
-                console.log("emailVal", emailVal)
                 setErrorMsg(email, 'Please enter a valid email id ')
             } else if (!isEmail(emailVal)) {
                 setErrorMsg(email, 'Please enter a valid email id')
             } else {
                 setSuccess(email)
             }
-           
+            // Selector validate
+            if (selected.textContent === "Select Options") {
+                setErrorForSelector('Please select a option ')
+            } else {
+                setSuccessforSelector()
+            }
             successMsg()
 
         }  // validate function end
